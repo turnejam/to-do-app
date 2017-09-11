@@ -24,15 +24,17 @@ function onReady(){
 
   });
 
-function check() {
-      document.getElementById("myCheck").checked = true;
-  }
+}
 
+function deleter(){
   removeFromList.addEventListener("submit", (event)=> {
     event.preventDefault();
+    let deleter = toDoList.querySelector("checkbox:checked");
+    deleter.parentNode.removeChild("deleter");
   });
 }
 
 window.onload = function(){
   onReady();
+  deleter();
 }
