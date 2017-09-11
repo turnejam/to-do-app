@@ -21,6 +21,15 @@ function onReady(){
       newLi.appendChild(checkbox);
 
       newToDoText.value = "";
+
+  });
+
+function check() {
+      document.getElementById("myCheck").checked = true;
+  }
+
+  removeFromList.addEventListener("submit", (event)=> {
+    event.preventDefault();
   });
 }
 
