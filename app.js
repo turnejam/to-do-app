@@ -1,42 +1,40 @@
 function onReady(){
-  var toDos = [];
-  var addToDoForm = document.getElementById("addToDoForm");
+  const addToDoForm = document.getElementById("addToDoForm");
+  const addToDoText = document.getElementById("newToDoText");
+  const toDoList = document.getElementById("toDoList");
+  const removeFromList = document.getElementById("removeFromList");
 
-  function createNewToDo(){
-    var newToDoText = document.getElementById("newToDoText");
-    toDos.push({
-      title: newToDoText.value,
-      complete: false
-    });
-    newToDoTexts.value= "";
+  addToDoForm.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-    renderTheUI(toDos);
-  }
+      let title = newToDoText.value;
 
-  function renderTheUI(toDos){
-    var toDoList = document.getElementById("toDoList");
+      let newLi = document.createElement('li');
 
-    toDoList.innerHTML = "";
+      let checkbox = document.createElement("input");
 
-    toDos.forEach(function(toDo)){
-      var newLi = document.createElement('li');
-      var checkbox = document.createElement('input');
       checkbox.type = "checkbox";
 
-      newLi.innerHTML = toDo.title;
-      toDoList.appendChild(newLi);
-      newLi.appendChild(checkbox);
-    });
-  }
+      newLi.textContent = title;
 
-  addToDoForm.addEventListener("submit", function(event)){
-    event.preventDefault();
-    createNewToDo();
+      toDoList.appendChild(newLi);
+
+      newLi.appendChild(checkbox);
+
+      newToDoText.value = "";
+
   });
 
-  renderTheUI(toDos);
-
-  
+removeFromList.addEventListener("submit", (event) => {
+      event.preventDefault();
+      var deleter = document.getElementsByTagName("li");
+      deleter.forEach(function(item){
+        var checker = item.children
+        if (checker.checked == true){
+          toDoList.removeChild(item);
+        }
+      });
+});
 }
 
 window.onload = function(){
