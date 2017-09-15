@@ -29,14 +29,35 @@ function onReady(){
     });
   }
 
-  addToDoForm.addEventListener("submit", function(event)){
+  function emptyList(toDos){
+    var finishedItems = []
+    for (var i=0; i<toDos.length; i++){
+      if(toDos[i].complete == true){
+        finishedItems.push(toDos[i]);
+      }
+    }
+    for (var j = 0; j<finishedItems.length; j++){
+      finishedItems[j].parentNode.removeChild(finishedItems[j]);
+    }
+  }
+
+  addToDoForm.addEventListener("submit", function(event){
     event.preventDefault();
     createNewToDo();
   });
 
-  renderTheUI(toDos);
+  checkbox.addEventListener("change", function(){
+    if (this.checked){
+      checkbox.parentNode.complete = true;
+    }
+  });
 
-  
+  removeFromList.addEventListener("submit", function(event){
+    event.preventDefault();
+    emptyList();
+  });
+
+
 }
 
 window.onload = function(){
