@@ -25,12 +25,19 @@ function onReady(){
 
   });
 
-  removeFromList.addEventListener("submit", (event)=> {
-    event.preventDefault();
-    while (toDoList.querySelector("checkbox:checked")){
-    checkbox.parentNode.removeChild(checkbox);
-  }
-  });
+  removeFromList.addEventListener("submit", (event) => {
+        event.preventDefault();
+        var toDoItems = document.getElementsByClassName("done");
+        var finishedItems = [];
+        for (var i = 0; i < toDoItems.length; i++){
+          if(toDoItems[i].checked){
+            finishedItems.push(toDoItems[i].parentNode);
+          }
+        }
+        for (var j = 0; j <= finishedItems.length; j++){
+            finishedItems[j].parentNode.removeChild(finishedItems[j]);
+          }
+        });
 }
 
 window.onload = function(){
