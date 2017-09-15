@@ -1,6 +1,7 @@
 function onReady(){
   var toDos = [];
   var addToDoForm = document.getElementById("addToDoForm");
+  var removeFromList = document.getElementById("removeFromList");
 
   function createNewToDo(){
     var newToDoText = document.getElementById("newToDoText");
@@ -8,7 +9,7 @@ function onReady(){
       title: newToDoText.value,
       complete: false
     });
-    newToDoTexts.value= "";
+    newToDoText.value= "";
 
     renderTheUI(toDos);
   }
@@ -18,48 +19,51 @@ function onReady(){
 
     toDoList.innerHTML = "";
 
-    toDos.forEach(function(toDo)){
+    toDos.forEach(function(toDo){
       var newLi = document.createElement('li');
       var checkbox = document.createElement('input');
       checkbox.type = "checkbox";
-
+      checkbox.className = "done";
       newLi.innerHTML = toDo.title;
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
     });
   }
 
-  function emptyList(toDos){
-    var finishedItems = []
+  function changeState (){
+  var checker = document.getElementsByClassName("done");
+  for (var k = 0; k < checker.length; k++){
+  if(checker[k].checked){
+    toDos[k].complete = true;
+  };
+};
+}
+
+  function emptyList(){
     for (var i=0; i<toDos.length; i++){
       if(toDos[i].complete == true){
-        finishedItems.push(toDos[i]);
-      }
-    }
-    for (var j = 0; j<finishedItems.length; j++){
-      finishedItems[j].parentNode.removeChild(finishedItems[j]);
-    }
-  }
+        toDos.splice(i, 1);
+}
+};
+    renderTheUI(toDos);
+}
 
   addToDoForm.addEventListener("submit", function(event){
     event.preventDefault();
     createNewToDo();
   });
 
-  checkbox.addEventListener("change", function(){
-    if (this.checked){
-      checkbox.parentNode.complete = true;
-    }
-  });
+  document.addEventListener('change',function(event){
+      changeState();
+    });
 
   removeFromList.addEventListener("submit", function(event){
     event.preventDefault();
     emptyList();
   });
 
-
 }
 
 window.onload = function(){
   onReady();
-}
+};
