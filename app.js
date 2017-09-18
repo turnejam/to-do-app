@@ -27,17 +27,12 @@ function onReady(){
       newLi.innerHTML = toDo.title;
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
+
+      checkbox.addEventListener('change',function(event){
+          toDo.complete = event.currentTarget.checked;
+        });
     });
   }
-
-  function changeState (){
-  var checker = document.getElementsByClassName("done");
-  for (var k = 0; k < checker.length; k++){
-  if(checker[k].checked){
-    toDos[k].complete = true;
-  };
-};
-}
 
   function emptyList(){
     for (var i=0; i<toDos.length; i++){
@@ -52,10 +47,6 @@ function onReady(){
     event.preventDefault();
     createNewToDo();
   });
-
-  document.addEventListener('change',function(event){
-      changeState();
-    });
 
   removeFromList.addEventListener("submit", function(event){
     event.preventDefault();
